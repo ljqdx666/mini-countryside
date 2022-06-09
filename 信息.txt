@@ -1,0 +1,60 @@
+https://springboot-4wsp-1969312-1312196033.ap-shanghai.run.tcloudbase.com/
+https://github.com/WeixinCloud/wxcloudrun-springboot
+7z3DEBTa
+
+Page({
+  async test() {
+     // 使用 callContainer 前一定要 init 一下，全局执行一次即可
+    //  wx.cloud.init()
+     // // 下面的请求可以在页面任意一处使用
+     const result = await wx.cloud.callContainer({
+       config: {
+         env: 'prod-6gkeef8j8c880a59', // 微信云托管的环境ID
+       },
+       path: '/api/count', // 填入业务自定义路径和参数，根目录，就是 / 
+       method: 'POST', // 按照自己的业务开发，选择对应的方法
+       header: {
+         "X-WX-SERVICE": "countryside",
+         "content-type": "application/json" // xxx中填入服务名称（微信云托管 - 服务管理 - 服务列表 - 服务名称）
+       },
+       "data": {
+         "action": "clear"
+       }
+       // dataType:'text', // 默认不填是以 JSON 形式解析返回结果，若不想让 SDK 自己解析，可以填text
+     })
+     console.log(result)
+   },
+   async test1() {
+    // 使用 callContainer 前一定要 init 一下，全局执行一次即可
+   wx.cloud.init()
+    // 下面的请求可以在页面任意一处使用
+    const result = await wx.cloud.callContainer({
+      config: {
+        env: 'prod-6gkeef8j8c880a59', // 微信云托管的环境ID
+      },
+      path: '/api/count', // 填入业务自定义路径和参数，根目录，就是 / 
+      method: 'POST', // 按照自己的业务开发，选择对应的方法
+      header: {
+        "X-WX-SERVICE": "countryside",
+        "content-type": "application/json" // xxx中填入服务名称（微信云托管 - 服务管理 - 服务列表 - 服务名称）
+      },
+      "data": {
+        "action": "cl"
+      }
+      // dataType:'text', // 默认不填是以 JSON 形式解析返回结果，若不想让 SDK 自己解析，可以填text
+    })
+    console.log(result)
+  }
+ })
+
+ async onLaunch() {
+    // 使用 callContainer 前一定要 init 一下，全局执行一次即可
+    wx.cloud.init()
+  }
+
+
+{
+  "MYSQL_HOST": "10.0.224.17:3306",
+  "MYSQL_PASSWORD": "7z3DEBTa",
+  "MYSQL_USER_NAME": "root"
+}
