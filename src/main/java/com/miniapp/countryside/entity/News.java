@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Data
 public class News extends FileBaseEntity {
-    @Column(unique = true)
     private String title;
 
     @Column(name="key_words")

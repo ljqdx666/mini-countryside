@@ -19,7 +19,7 @@ public class NewsController {
     NewsMapper newsMapper;
 
     @GetMapping("")
-    List<NewsVo>list(){return  newsService.list().stream().map(newsMapper::toVo).collect(Collectors.toList());}
+    List<NewsVo>list(){return newsService.list().stream().map(newsMapper::toVo).collect(Collectors.toList());}
 
     @PostMapping("")
     NewsVo create(@Validated @RequestBody NewsCreateRequest newsCreateRequest){
