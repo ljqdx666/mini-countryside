@@ -9,4 +9,6 @@ public interface VideoService {
     List<VideoDto> list();
 
     VideoDto create(VideoCreateRequest videoCreateRequest);
+
+    void delete(String id);
 }

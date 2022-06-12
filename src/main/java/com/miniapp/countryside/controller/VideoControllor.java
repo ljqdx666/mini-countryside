@@ -26,6 +26,8 @@ public class VideoControllor {
     VideoVo create(@Validated @RequestBody VideoCreateRequest videoCreateRequest){
         return  videoMapper.toVo(videoService.create(videoCreateRequest));
     }
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable String id){videoService.delete(id);}
 
     @Autowired
     public void setVideoService(VideoService videoService) {

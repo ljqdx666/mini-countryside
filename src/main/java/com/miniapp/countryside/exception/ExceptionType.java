@@ -14,10 +14,12 @@ public enum ExceptionType {
     USER_NOT_ENABLED(50001001, "用户未启用"),
     USER_LOCKED(50001002, "用户被锁定"),
     USER_OPEN_ID_NOT_FOUND(40401003, "未找到openId绑定用户"),
-    MUSIC_NOT_FOUND(40402001, "歌曲不存在"),
-    FILE_NOT_FOUND(40403001, "文件不存在"),
+    SONG_NOT_FOUND(40402001, "歌曲不存在"),
+    NEWS_NOT_FOUND(40403001, "资讯不存在"),
+    VIDEO_NOT_FOUND(40404001,"视频不存在"),
     FILE_NOT_PERMISSION(40303002, "当前用户无权限修改文件"),
-    PLAYLIST_NOT_FOUND(40404001, "歌单不存在"),
+    SEARCH_SONG_NOT_FOUND(40402002, "搜索的歌手或歌曲不存在"),
+    SEARCH_NEWS_NOT_FOUND(40403002,"搜索的资讯不存在"),
     ARTIST_NOT_FOUND(40405001, "歌手不存在"),
     ALBUM_NOT_FOUND(40406001, "专辑不存在");
 

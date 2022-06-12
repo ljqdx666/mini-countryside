@@ -1,10 +1,15 @@
 package com.miniapp.countryside.controller;
 
 import com.miniapp.countryside.dto.NewsCreateRequest;
+import com.miniapp.countryside.entity.News;
 import com.miniapp.countryside.mapper.NewsMapper;
 import com.miniapp.countryside.service.NewsService;
 import com.miniapp.countryside.vo.NewsVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +24,21 @@ public class NewsController {
     NewsMapper newsMapper;
 
     @GetMapping("")
+//    Page<NewsVo> search(@PageableDefault (sort = {"createdTime"}, direction = Sort.Direction.DESC) Pageable pageable){
+//        return newsService.search(pageable).map(newsMapper::toVo);
+//    }
     List<NewsVo>list(){return newsService.list().stream().map(newsMapper::toVo).collect(Collectors.toList());}
 
     @PostMapping("")
     NewsVo create(@Validated @RequestBody NewsCreateRequest newsCreateRequest){
         return newsMapper.toVo(newsService.create(newsCreateRequest));
     }
+
+    @GetMapping("/{searchContent}")
+    List<NewsVo> search(@PathVariable String searchContent){return  newsService.search(searchContent).stream().map(newsMapper::toVo).collect(Collectors.toList());}
+
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable String id){newsService.delete(id);}
 
     @Autowired
     public void setNewsService(NewsService newsService) {
