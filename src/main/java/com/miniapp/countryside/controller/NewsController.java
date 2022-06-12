@@ -24,10 +24,10 @@ public class NewsController {
     NewsMapper newsMapper;
 
     @GetMapping("")
+    List<NewsVo>list(){return newsService.list().stream().map(newsMapper::toVo).collect(Collectors.toList());}
 //    Page<NewsVo> search(@PageableDefault (sort = {"createdTime"}, direction = Sort.Direction.DESC) Pageable pageable){
 //        return newsService.search(pageable).map(newsMapper::toVo);
 //    }
-    List<NewsVo>list(){return newsService.list().stream().map(newsMapper::toVo).collect(Collectors.toList());}
 
     @PostMapping("")
     NewsVo create(@Validated @RequestBody NewsCreateRequest newsCreateRequest){
@@ -35,7 +35,7 @@ public class NewsController {
     }
 
     @GetMapping("/{searchContent}")
-    List<NewsVo> search(@PathVariable String searchContent){return  newsService.search(searchContent).stream().map(newsMapper::toVo).collect(Collectors.toList());}
+    List<NewsVo> search(@PathVariable String searchContent){ return  newsService.search(searchContent).stream().map(newsMapper::toVo).collect(Collectors.toList());}
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable String id){newsService.delete(id);}

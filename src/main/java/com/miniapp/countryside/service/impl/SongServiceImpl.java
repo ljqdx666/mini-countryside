@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +43,11 @@ public class SongServiceImpl extends BaseService implements SongService {
 
     @Override
     public List<SongDto> search(String searchContent) {
+        try {
+            searchContent = new String(searchContent.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         List<Song> songs=songRepository.findBySongNameLikeOrSingerNameLike("%"+searchContent+"%","%"+searchContent+"%");
         if (songs.size()==0)
             throw new BizException(ExceptionType.SEARCH_SONG_NOT_FOUND);

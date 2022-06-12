@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,9 +41,21 @@ public class NewsServiceImpl extends BaseService implements NewsService {
 
     @Override
     public List<NewsDto> search(String searchContent) {
-//        List<News> news=newsRepository.findByTitleLike("%"+searchContent+"%");
-        List<News> news=newsRepository.findByTitleLike(searchContent);
+//        List<News> news=newsRepository.findByTitle(searchContent);
+        try {
+            searchContent = new String(searchContent.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        List<News> news=newsRepository.findByTitleLike("%"+searchContent+"%");
+//        List<News> all=newsRepository.findAll();
+//        List<News> news=new ArrayList<>();
+//        for (News news1: all){
+//            if (news1.getTitle().indexOf(searchContent)!=-1)
+//                news.add(news1);
+//        }
         if (news.size()==0)
+//            throw new BizException(40000,searchContent);
             throw new BizException(ExceptionType.SEARCH_NEWS_NOT_FOUND);
         return news.stream().map(newsMapper::toDto).collect(Collectors.toList());
     }
