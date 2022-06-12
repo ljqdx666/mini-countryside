@@ -39,7 +39,8 @@ public class NewsServiceImpl extends BaseService implements NewsService {
 
     @Override
     public List<NewsDto> search(String searchContent) {
-        List<News> news=newsRepository.findByTitleLike("%"+searchContent+"%");
+//        List<News> news=newsRepository.findByTitleLike("%"+searchContent+"%");
+        List<News> news=newsRepository.findByTitleLike(searchContent);
         if (news.size()==0)
             throw new BizException(ExceptionType.SEARCH_NEWS_NOT_FOUND);
         return news.stream().map(newsMapper::toDto).collect(Collectors.toList());

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,8 @@ public interface NewsRepository extends JpaRepository<News,String> {
     News getById(String id);
 
 //    Page<News> findAll(Pageable pageable);
-    List<News> findByTitleLike(String title);
+    @Query(value = "SELECT u FROM News u WHERE u.title LIKE CONCAT('%',:title,'%') ")
+    List<News> findByTitleLike(@Param("title") String title);
 
     @Query(value = "SELECT * FROM news order by created_time desc",nativeQuery = true)
     List<News> findAll();
