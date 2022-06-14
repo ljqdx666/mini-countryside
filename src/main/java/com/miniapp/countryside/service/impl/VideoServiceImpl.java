@@ -36,6 +36,14 @@ public class VideoServiceImpl extends BaseService implements VideoService {
     @Override
     public void delete(String id) { videoRepository.delete(getById(id));}
 
+    @Override
+    public VideoDto addLike(String id) {
+        Video video=getById(id);
+        Integer likeNum=video.getLikeNum();
+        video.setLikeNum(likeNum+1);
+        return videoMapper.toDto(videoRepository.save(video));
+    }
+
     private Video getById(String id){
         Optional<Video> video=videoRepository.findById(id);
         if ((!video.isPresent())){

@@ -11,4 +11,6 @@ public interface VideoService {
     VideoDto create(VideoCreateRequest videoCreateRequest);
 
     void delete(String id);
+
+    VideoDto addLike(String id);
 }

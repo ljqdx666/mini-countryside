@@ -33,7 +33,7 @@ public class NewsServiceImpl extends BaseService implements NewsService {
     @Override
     public NewsDto create(NewsCreateRequest newsCreateRequest) {
         News news=newsMapper.createEntity(newsCreateRequest);
-        return  newsMapper.toDto(newsRepository.save(news));
+        return newsMapper.toDto(newsRepository.save(news));
     }
 
     @Override

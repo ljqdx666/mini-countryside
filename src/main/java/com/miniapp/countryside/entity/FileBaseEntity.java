@@ -18,8 +18,10 @@ public class FileBaseEntity {
     private String id;
 
     @CreationTimestamp
+    @Column(name = "created_time")
     private Date createdTime;
 
     @UpdateTimestamp
+    @Column(name = "updated_time")
     private Date updatedTime;
 }

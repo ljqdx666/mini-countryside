@@ -29,6 +29,9 @@ public class VideoControllor {
     @DeleteMapping("/{id}")
     void delete(@PathVariable String id){videoService.delete(id);}
 
+    @GetMapping("/{id}")
+    VideoVo addLike(@PathVariable String id){return videoMapper.toVo(videoService.addLike(id));}
+
     @Autowired
     public void setVideoService(VideoService videoService) {
         this.videoService = videoService;

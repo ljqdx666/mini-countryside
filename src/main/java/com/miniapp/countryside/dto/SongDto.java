@@ -2,7 +2,6 @@ package com.miniapp.countryside.dto;
 
 import lombok.Data;
 
-import java.util.Date;
 
 @Data
 public class SongDto extends FileBaseDto{
