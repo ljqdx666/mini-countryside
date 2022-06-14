@@ -3,6 +3,7 @@ package com.miniapp.countryside.controller;
 import com.miniapp.countryside.dto.SurroundingCreateRequest;
 import com.miniapp.countryside.mapper.SurroundingMapper;
 import com.miniapp.countryside.service.SurroundingService;
+import com.miniapp.countryside.vo.SurroundingRequestVo;
 import com.miniapp.countryside.vo.SurroundingVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -18,10 +19,12 @@ public class SurroundingController {
     SurroundingMapper surroundingMapper;
 
     @GetMapping("")
-    List<SurroundingVo> list(){return surroundingService.list().stream().map(surroundingMapper::toVo).collect(Collectors.toList());}
+//    List<SurroundingVo> list(){return surroundingService.list().stream().map(surroundingMapper::toVo).collect(Collectors.toList());}
+    List<SurroundingRequestVo> list(){return surroundingService.list();}
 
     @GetMapping("/me/{creatorName}")
-    List<SurroundingVo> findMine(@PathVariable String creatorName){return surroundingService.findMine(creatorName).stream().map(surroundingMapper::toVo).collect(Collectors.toList());}
+//    List<SurroundingVo> findMine(@PathVariable String creatorName){return surroundingService.findMine(creatorName).stream().map(surroundingMapper::toVo).collect(Collectors.toList());}
+    List<SurroundingRequestVo> findMine(@PathVariable String creatorName){return surroundingService.findMine(creatorName);}
 
     @PostMapping("")
     SurroundingVo create(@Validated @RequestBody SurroundingCreateRequest surroundingCreateRequest){

@@ -41,10 +41,32 @@ public class LessonServiceImpl extends BaseService implements LessonService {
     }
 
     @Override
+    public List<LessonDto>listClass(String classification) {
+        try {
+            classification = new String(classification.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        List<Lesson> lessons=lessonRepository.findByClassification(classification);
+        if (lessons.size()==0){
+            throw new BizException(ExceptionType.LESSON_CLASS_NOT_FOUND);
+        }
+        return lessons.stream().map(lessonMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
     public LessonDto create(LessonCreateRequest lessonCreateRequest) {
         Lesson lesson=lessonMapper.createEntity(lessonCreateRequest);
+//        Lesson lesson=new Lesson();
+//        lesson.setTitle(lessonCreateRequest.getTitle());
+//        lesson.setClassification(lessonCreateRequest.getClassification());
+//        lesson.setTeacherName(lessonCreateRequest.getTeacherName());
+//        lesson.setKeyWords(lessonCreateRequest.getKeyWords());
+//        lesson.setPicUrl(lessonCreateRequest.getPicUrl());
+//        System.out.println(lesson.toString());
         checkLessonUnique(lessonCreateRequest.getTitle(),lessonCreateRequest.getTeacherName());
         Lesson savedLesson=lessonRepository.save(lesson);
+//        System.out.println(savedLesson.getCreatedTime());
         String lessonId=savedLesson.getId();
         List<String> contents=lessonCreateRequest.getContentUrls();
         for (String content:contents){

@@ -24,6 +24,7 @@ public enum ExceptionType {
     SEARCH_SONG_NOT_FOUND(40402002, "搜索的歌手或歌曲不存在"),
     SEARCH_NEWS_NOT_FOUND(40403002,"搜索的资讯不存在"),
     SEARCH_LESSON_NOT_FOUND(40405002,"搜索的课程不存在"),
+    LESSON_CLASS_NOT_FOUND(40405003,"该分类还没有课程哦~"),
     NO_MINE_SURROUNDING(40406003,"还没有已上传的周围哦~"),
     NO_MINE_VIDEO(40404003,"还没有已上传的小视频哦~");
 //    ARTIST_NOT_FOUND(40405001, "歌手不存在"),

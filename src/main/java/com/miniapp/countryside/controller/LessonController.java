@@ -38,6 +38,9 @@ public class LessonController {
     @GetMapping("/pass/{id}")
     LessonVo changeToPassed(@PathVariable String id){return lessonMapper.toVo(lessonService.changeToPassed(id));}
 
+    @GetMapping("/class/{classification}")
+    List<LessonVo> listClass(@PathVariable String classification){return lessonService.listClass(classification).stream().map(lessonMapper::toVo).collect(Collectors.toList());}
+
     @Autowired
     public void setLessonService(LessonService lessonService) {
         this.lessonService = lessonService;

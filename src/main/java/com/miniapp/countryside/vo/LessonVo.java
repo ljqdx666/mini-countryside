@@ -9,9 +9,13 @@ import java.util.Date;
 public class LessonVo extends FileBaseVo{
     private String title;
 
+    private String classification;
+
     private String teacherName;
 
     private String keyWords;
+
+    private String picUrl;
 
     private Boolean checked;
 }

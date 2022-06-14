@@ -2,13 +2,14 @@ package com.miniapp.countryside.service;
 
 import com.miniapp.countryside.dto.SurroundingCreateRequest;
 import com.miniapp.countryside.dto.SurroundingDto;
+import com.miniapp.countryside.vo.SurroundingRequestVo;
 
 import java.util.List;
 
 public interface SurroundingService {
-    List<SurroundingDto> list();
+    List<SurroundingRequestVo> list();
 
-    List<SurroundingDto> findMine(String creatorName);
+    List<SurroundingRequestVo> findMine(String creatorName);
 
     SurroundingDto create(SurroundingCreateRequest surroundingCreateRequest);
 

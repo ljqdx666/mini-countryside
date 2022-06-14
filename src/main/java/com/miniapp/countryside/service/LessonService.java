@@ -10,6 +10,8 @@ public interface LessonService {
 
     List<LessonDto>listPassed();
 
+    List<LessonDto>listClass(String classification);
+
     LessonDto create(LessonCreateRequest lessonCreateRequest);
 
     void delete(String id);

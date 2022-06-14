@@ -2,6 +2,7 @@ package com.miniapp.countryside.service.impl;
 
 import com.miniapp.countryside.dto.SurroundingCreateRequest;
 import com.miniapp.countryside.dto.SurroundingDto;
+import com.miniapp.countryside.entity.LessonContent;
 import com.miniapp.countryside.entity.Surrounding;
 import com.miniapp.countryside.exception.BizException;
 import com.miniapp.countryside.exception.ExceptionType;
@@ -11,11 +12,13 @@ import com.miniapp.countryside.repository.LessonContentRepository;
 import com.miniapp.countryside.repository.SurroundingRepository;
 import com.miniapp.countryside.service.LessonContentService;
 import com.miniapp.countryside.service.SurroundingService;
+import com.miniapp.countryside.vo.SurroundingRequestVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,12 +33,15 @@ public class SurroundingServiceImpl extends BaseService implements SurroundingSe
     LessonContentService surroundingContentService;
 
     @Override
-    public List<SurroundingDto> list() {
-        return surroundingRepository.findAll().stream().map(surroundingMapper::toDto).collect(Collectors.toList());
+    public List<SurroundingRequestVo> list() {
+        List<Surrounding> surroundings=surroundingRepository.findAll();
+//        return surroundings.stream().map(surroundingMapper::toDto).collect(Collectors.toList());
+        return addContents(surroundings);
+//        return surroundingRepository.findAll().stream().map(surroundingMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<SurroundingDto> findMine(String creatorName) {
+    public List<SurroundingRequestVo> findMine(String creatorName) {
         try {
             creatorName = new String(creatorName.getBytes("ISO-8859-1"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -45,7 +51,8 @@ public class SurroundingServiceImpl extends BaseService implements SurroundingSe
         if (surroundings.size()==0){
             throw new BizException(ExceptionType.NO_MINE_SURROUNDING);
         }
-        return surroundings.stream().map(surroundingMapper::toDto).collect(Collectors.toList());
+//        return surroundings.stream().map(surroundingMapper::toDto).collect(Collectors.toList());
+        return addContents(surroundings);
     }
 
     @Override
@@ -72,6 +79,22 @@ public class SurroundingServiceImpl extends BaseService implements SurroundingSe
             throw new BizException(ExceptionType.SURROUNDING_NOT_FOUND);
         }
         return surrounding.get();
+    }
+
+    private List<SurroundingRequestVo> addContents(List<Surrounding> surroundings){
+        List<SurroundingRequestVo> surroundingRequestVos=new ArrayList<>();
+        for (Surrounding surrounding:surroundings){
+            List<String> contentUrls=new ArrayList<String>() ;
+            String id=surrounding.getId();
+            List<LessonContent> lessonContents=surroundingContentRepository.findByLessonId(id);
+            for (LessonContent lessonContent:lessonContents){
+                contentUrls.add(lessonContent.getContentUrl());
+            }
+            SurroundingRequestVo surroundingRequestVo=surroundingMapper.toRequestVo(surrounding);
+            surroundingRequestVo.setContentUrls(contentUrls);
+            surroundingRequestVos.add(surroundingRequestVo);
+        }
+        return surroundingRequestVos;
     }
 
     @Autowired
