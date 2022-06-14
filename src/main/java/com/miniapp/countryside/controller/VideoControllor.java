@@ -22,15 +22,22 @@ public class VideoControllor {
     @GetMapping("")
     List<VideoVo>list(){return videoService.list().stream().map(videoMapper::toVo).collect(Collectors.toList());}
 
+    @GetMapping("/me/{creatorName}")
+    List<VideoVo>findMine(@PathVariable String creatorName){return videoService.findMine(creatorName).stream().map(videoMapper::toVo).collect(Collectors.toList());}
+
     @PostMapping("")
     VideoVo create(@Validated @RequestBody VideoCreateRequest videoCreateRequest){
         return  videoMapper.toVo(videoService.create(videoCreateRequest));
     }
+
     @DeleteMapping("/{id}")
     void delete(@PathVariable String id){videoService.delete(id);}
 
-    @GetMapping("/{id}")
+    @GetMapping("/add/{id}")
     VideoVo addLike(@PathVariable String id){return videoMapper.toVo(videoService.addLike(id));}
+
+    @GetMapping("/cancel/{id}")
+    VideoVo cancelLike(@PathVariable String id){return videoMapper.toVo(videoService.cancelLike(id));}
 
     @Autowired
     public void setVideoService(VideoService videoService) {

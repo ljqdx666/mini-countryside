@@ -6,11 +6,15 @@ import com.miniapp.countryside.dto.LessonDto;
 import java.util.List;
 
 public interface LessonService {
-    List<LessonDto>list();
+    List<LessonDto>listUnchecked();
+
+    List<LessonDto>listPassed();
 
     LessonDto create(LessonCreateRequest lessonCreateRequest);
 
     void delete(String id);
 
     List<LessonDto> search(String searchContent);
+
+    LessonDto changeToPassed(String id);
 }

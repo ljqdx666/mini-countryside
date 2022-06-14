@@ -19,7 +19,10 @@ public class LessonController {
     LessonMapper lessonMapper;
 
     @GetMapping("")
-    List<LessonVo>list(){return lessonService.list().stream().map(lessonMapper::toVo).collect(Collectors.toList());}
+    List<LessonVo>listPassed(){return lessonService.listPassed().stream().map(lessonMapper::toVo).collect(Collectors.toList());}
+
+    @GetMapping("/unchecked")
+    List<LessonVo>listUnchecked(){return lessonService.listUnchecked().stream().map(lessonMapper::toVo).collect(Collectors.toList());}
 
     @PostMapping("")
     LessonVo create(@Validated @RequestBody LessonCreateRequest lessonCreateRequest){
@@ -31,6 +34,9 @@ public class LessonController {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable String id){lessonService.delete(id);}
+
+    @GetMapping("/pass/{id}")
+    LessonVo changeToPassed(@PathVariable String id){return lessonMapper.toVo(lessonService.changeToPassed(id));}
 
     @Autowired
     public void setLessonService(LessonService lessonService) {

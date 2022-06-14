@@ -31,8 +31,13 @@ public class LessonServiceImpl extends BaseService implements LessonService {
     LessonContentService lessonContentService;
 
     @Override
-    public List<LessonDto> list() {
-        return lessonRepository.findAll().stream().map(lessonMapper::toDto).collect(Collectors.toList());
+    public List<LessonDto> listUnchecked() {
+        return lessonRepository.findUnchecked().stream().map(lessonMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LessonDto> listPassed() {
+        return lessonRepository.findPassed().stream().map(lessonMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -72,6 +77,17 @@ public class LessonServiceImpl extends BaseService implements LessonService {
         if (lessons.size()==0)
             throw new BizException(ExceptionType.SEARCH_LESSON_NOT_FOUND);
         return lessons.stream().map(lessonMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public LessonDto changeToPassed(String id) {
+        Lesson lesson=getById(id);
+        lesson.setChecked(true);
+//        Optional<Lesson> lesson=lessonRepository.findById(id);
+//        if (!lesson.isPresent()){
+//            throw new BizException(ExceptionType.);
+//        }
+        return lessonMapper.toDto(lessonRepository.save(lesson));
     }
 
     private Lesson getById(String id){

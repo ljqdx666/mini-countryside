@@ -11,6 +11,7 @@ import com.miniapp.countryside.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +25,20 @@ public class VideoServiceImpl extends BaseService implements VideoService {
     @Override
     public List<VideoDto> list() {
         return videoRepository.findAll().stream().map(videoMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VideoDto> findMine(String creatorName) {
+        try {
+            creatorName = new String(creatorName.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        List<Video> videos=videoRepository.getAllByCreatorName(creatorName);
+        if (videos.size()==0){
+            throw new BizException(ExceptionType.NO_MINE_VIDEO);
+        }
+        return videos.stream().map(videoMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -41,6 +56,14 @@ public class VideoServiceImpl extends BaseService implements VideoService {
         Video video=getById(id);
         Integer likeNum=video.getLikeNum();
         video.setLikeNum(likeNum+1);
+        return videoMapper.toDto(videoRepository.save(video));
+    }
+
+    @Override
+    public VideoDto cancelLike(String id) {
+        Video video=getById(id);
+        Integer likeNum=video.getLikeNum();
+        video.setLikeNum(likeNum-1);
         return videoMapper.toDto(videoRepository.save(video));
     }
 
