@@ -4,6 +4,7 @@ import com.miniapp.countryside.dto.SongCreateRequest;
 import com.miniapp.countryside.mapper.SongMapper;
 import com.miniapp.countryside.service.SongService;
 import com.miniapp.countryside.vo.SongVo;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PageableDefault;
@@ -32,7 +33,7 @@ public class SongController {
     List<SongVo> search(@PathVariable String searchContent){return songService.search(searchContent).stream().map(songMapper::toVo).collect(Collectors.toList());}
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable String id){songService.delete(id);}
+    SuccessVo delete(@PathVariable String id){return songService.delete(id);}
 
     @Autowired
     public void setSongService(SongService songService) {

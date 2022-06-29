@@ -2,6 +2,7 @@ package com.miniapp.countryside.service;
 
 import com.miniapp.countryside.dto.NewsCreateRequest;
 import com.miniapp.countryside.dto.NewsDto;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ public interface NewsService {
 
     NewsDto create(NewsCreateRequest newsCreateRequest);
 
-    void delete(String id);
+    SuccessVo delete(String id);
 
 //    Page<NewsDto> search(Pageable pageable);
 

@@ -8,6 +8,7 @@ import com.miniapp.countryside.exception.ExceptionType;
 import com.miniapp.countryside.mapper.NewsMapper;
 import com.miniapp.countryside.repository.NewsRepository;
 import com.miniapp.countryside.service.NewsService;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +38,12 @@ public class NewsServiceImpl extends BaseService implements NewsService {
     }
 
     @Override
-    public void delete(String id) { newsRepository.delete(getById(id)); }
+    public SuccessVo delete(String id) {
+        newsRepository.delete(getById(id));
+        SuccessVo successVo=new SuccessVo();
+        successVo.setCode("删除成功");
+        return successVo;
+    }
 
     @Override
     public List<NewsDto> search(String searchContent) {

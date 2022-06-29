@@ -8,6 +8,7 @@ import com.miniapp.countryside.exception.ExceptionType;
 import com.miniapp.countryside.mapper.SongMapper;
 import com.miniapp.countryside.repository.SongRepository;
 import com.miniapp.countryside.service.SongService;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +40,12 @@ public class SongServiceImpl extends BaseService implements SongService {
     }
 
     @Override
-    public void delete(String id) { songRepository.delete(getById(id));}
+    public SuccessVo delete(String id) {
+        songRepository.delete(getById(id));
+        SuccessVo successVo=new SuccessVo();
+        successVo.setCode("删除成功");
+        return successVo;
+    }
 
     @Override
     public List<SongDto> search(String searchContent) {

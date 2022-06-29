@@ -2,16 +2,17 @@ package com.miniapp.countryside.service.impl;
 
 import com.miniapp.countryside.dto.SurroundingCreateRequest;
 import com.miniapp.countryside.dto.SurroundingDto;
-import com.miniapp.countryside.entity.LessonContent;
+import com.miniapp.countryside.entity.Content;
 import com.miniapp.countryside.entity.Surrounding;
 import com.miniapp.countryside.exception.BizException;
 import com.miniapp.countryside.exception.ExceptionType;
-import com.miniapp.countryside.mapper.LessonContentMapper;
+import com.miniapp.countryside.mapper.ContentMapper;
 import com.miniapp.countryside.mapper.SurroundingMapper;
-import com.miniapp.countryside.repository.LessonContentRepository;
+import com.miniapp.countryside.repository.ContentRepository;
 import com.miniapp.countryside.repository.SurroundingRepository;
-import com.miniapp.countryside.service.LessonContentService;
+import com.miniapp.countryside.service.ContentService;
 import com.miniapp.countryside.service.SurroundingService;
+import com.miniapp.countryside.vo.SuccessVo;
 import com.miniapp.countryside.vo.SurroundingRequestVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,16 +22,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class SurroundingServiceImpl extends BaseService implements SurroundingService {
     SurroundingRepository surroundingRepository;
     SurroundingMapper surroundingMapper;
-    LessonContentRepository surroundingContentRepository;
-    LessonContentMapper surroundingContentMapper;
-    LessonContentService surroundingContentService;
+    ContentRepository surroundingContentRepository;
+    ContentMapper surroundingContentMapper;
+    ContentService surroundingContentService;
 
     @Override
     public List<SurroundingRequestVo> list() {
@@ -68,9 +68,12 @@ public class SurroundingServiceImpl extends BaseService implements SurroundingSe
     }
 
     @Override
-    public void delete(String id) {
+    public SuccessVo delete(String id) {
         surroundingRepository.delete(getById(id));
         surroundingContentRepository.deleteAllByLessonId(id);
+        SuccessVo successVo=new SuccessVo();
+        successVo.setCode("删除成功");
+        return successVo;
     }
 
     private Surrounding getById(String id){
@@ -86,8 +89,8 @@ public class SurroundingServiceImpl extends BaseService implements SurroundingSe
         for (Surrounding surrounding:surroundings){
             List<String> contentUrls=new ArrayList<String>() ;
             String id=surrounding.getId();
-            List<LessonContent> lessonContents=surroundingContentRepository.findByLessonId(id);
-            for (LessonContent lessonContent:lessonContents){
+            List<Content> lessonContents=surroundingContentRepository.findByLessonId(id);
+            for (Content lessonContent:lessonContents){
                 contentUrls.add(lessonContent.getContentUrl());
             }
             SurroundingRequestVo surroundingRequestVo=surroundingMapper.toRequestVo(surrounding);
@@ -108,17 +111,17 @@ public class SurroundingServiceImpl extends BaseService implements SurroundingSe
     }
 
     @Autowired
-    public void setSurroundingContentRepository(LessonContentRepository surroundingContentRepository) {
+    public void setSurroundingContentRepository(ContentRepository surroundingContentRepository) {
         this.surroundingContentRepository = surroundingContentRepository;
     }
 
     @Autowired
-    public void setSurroundingContentMapper(LessonContentMapper surroundingContentMapper) {
+    public void setSurroundingContentMapper(ContentMapper surroundingContentMapper) {
         this.surroundingContentMapper = surroundingContentMapper;
     }
 
     @Autowired
-    public void setSurroundingContentService(LessonContentService surroundingContentService) {
+    public void setSurroundingContentService(ContentService surroundingContentService) {
         this.surroundingContentService = surroundingContentService;
     }
 }

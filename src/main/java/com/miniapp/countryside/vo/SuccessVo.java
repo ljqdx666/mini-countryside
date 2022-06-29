@@ -3,7 +3,6 @@ package com.miniapp.countryside.vo;
 import lombok.Data;
 
 @Data
-public class TeacherVo {
-
-    private  String username;
+public class SuccessVo {
+    private String code;
 }

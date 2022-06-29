@@ -8,6 +8,7 @@ import com.miniapp.countryside.exception.ExceptionType;
 import com.miniapp.countryside.mapper.VideoMapper;
 import com.miniapp.countryside.repository.VideoRepository;
 import com.miniapp.countryside.service.VideoService;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,12 @@ public class VideoServiceImpl extends BaseService implements VideoService {
     }
 
     @Override
-    public void delete(String id) { videoRepository.delete(getById(id));}
+    public SuccessVo delete(String id) {
+        videoRepository.delete(getById(id));
+        SuccessVo successVo=new SuccessVo();
+        successVo.setCode("删除成功");
+        return successVo;
+    }
 
     @Override
     public VideoDto addLike(String id) {

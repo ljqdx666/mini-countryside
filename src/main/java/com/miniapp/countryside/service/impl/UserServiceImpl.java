@@ -9,6 +9,7 @@ import com.miniapp.countryside.exception.ExceptionType;
 import com.miniapp.countryside.mapper.UserMapper;
 import com.miniapp.countryside.repository.UserRepository;
 import com.miniapp.countryside.service.UserServise;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +37,11 @@ public class UserServiceImpl extends BaseService implements UserServise {
     }
 
     @Override
-    public String login(UserLoginRequest userLoginRequest) {
+    public SuccessVo login(UserLoginRequest userLoginRequest) {
         checkLogin(userLoginRequest);
-        return "登陆成功";
+        SuccessVo successVo=new SuccessVo();
+        successVo.setCode("登陆成功");
+        return successVo;
     }
 
     private  void checkUserName(String username){

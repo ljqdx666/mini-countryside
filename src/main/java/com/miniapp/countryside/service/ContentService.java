@@ -1,11 +1,11 @@
 package com.miniapp.countryside.service;
 
-import com.miniapp.countryside.dto.LessonContentDto;
+import com.miniapp.countryside.dto.ContentDto;
 
 import java.util.List;
 
-public interface LessonContentService {
-    List<LessonContentDto>list(String lessonId);
+public interface ContentService {
+    List<ContentDto>list(String lessonId);
 
 //    LessonContentDto create(String lessonId,String contentUrl);
 

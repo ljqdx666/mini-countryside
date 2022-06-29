@@ -8,8 +8,8 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "lesson_content")
-public class LessonContent extends FileBaseEntity{
+@Table(name = "content")
+public class Content extends FileBaseEntity{
     @Column(name = "lesson_id")
     private String lessonId;
 
@@ -17,12 +17,12 @@ public class LessonContent extends FileBaseEntity{
     private String contentUrl;
 
 
-    public LessonContent(String lessonId, String contentUrl) {
+    public Content(String lessonId, String contentUrl) {
         this.lessonId=lessonId;
         this.contentUrl=contentUrl;
     }
 
-    public LessonContent() {
+    public Content() {
 
     }
 }

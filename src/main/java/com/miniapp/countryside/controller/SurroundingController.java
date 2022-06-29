@@ -3,6 +3,7 @@ package com.miniapp.countryside.controller;
 import com.miniapp.countryside.dto.SurroundingCreateRequest;
 import com.miniapp.countryside.mapper.SurroundingMapper;
 import com.miniapp.countryside.service.SurroundingService;
+import com.miniapp.countryside.vo.SuccessVo;
 import com.miniapp.countryside.vo.SurroundingRequestVo;
 import com.miniapp.countryside.vo.SurroundingVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class SurroundingController {
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable String id){surroundingService.delete(id);}
+    SuccessVo delete(@PathVariable String id){return surroundingService.delete(id);}
 
     @Autowired
     public void setSurroundingService(SurroundingService surroundingService) {

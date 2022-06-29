@@ -5,6 +5,7 @@ import com.miniapp.countryside.entity.News;
 import com.miniapp.countryside.mapper.NewsMapper;
 import com.miniapp.countryside.service.NewsService;
 import com.miniapp.countryside.vo.NewsVo;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +39,7 @@ public class NewsController {
     List<NewsVo> search(@PathVariable String searchContent){ return  newsService.search(searchContent).stream().map(newsMapper::toVo).collect(Collectors.toList());}
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable String id){newsService.delete(id);}
+    SuccessVo delete(@PathVariable String id){return newsService.delete(id);}
 
     @Autowired
     public void setNewsService(NewsService newsService) {

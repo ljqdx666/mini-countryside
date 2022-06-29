@@ -5,12 +5,13 @@ import com.miniapp.countryside.dto.LessonDto;
 import com.miniapp.countryside.entity.Lesson;
 import com.miniapp.countryside.exception.BizException;
 import com.miniapp.countryside.exception.ExceptionType;
-import com.miniapp.countryside.mapper.LessonContentMapper;
+import com.miniapp.countryside.mapper.ContentMapper;
 import com.miniapp.countryside.mapper.LessonMapper;
-import com.miniapp.countryside.repository.LessonContentRepository;
+import com.miniapp.countryside.repository.ContentRepository;
 import com.miniapp.countryside.repository.LessonRepository;
-import com.miniapp.countryside.service.LessonContentService;
+import com.miniapp.countryside.service.ContentService;
 import com.miniapp.countryside.service.LessonService;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +27,9 @@ public class LessonServiceImpl extends BaseService implements LessonService {
 
     LessonRepository lessonRepository;
     LessonMapper lessonMapper;
-    LessonContentRepository lessonContentRepository;
-    LessonContentMapper lessonContentMapper;
-    LessonContentService lessonContentService;
+    ContentRepository lessonContentRepository;
+    ContentMapper lessonContentMapper;
+    ContentService lessonContentService;
 
     @Override
     public List<LessonDto> listUnchecked() {
@@ -83,9 +84,12 @@ public class LessonServiceImpl extends BaseService implements LessonService {
     }
 
     @Override
-    public void delete(String id) {
+    public SuccessVo delete(String id) {
         lessonRepository.delete(getById(id));
         lessonContentRepository.deleteAllByLessonId(id);
+        SuccessVo successVo=new SuccessVo();
+        successVo.setCode("删除成功");
+        return successVo;
     }
 
     @Override
@@ -138,17 +142,17 @@ public class LessonServiceImpl extends BaseService implements LessonService {
     }
 
     @Autowired
-    public void setLessonContentRepository(LessonContentRepository lessonContentRepository) {
+    public void setLessonContentRepository(ContentRepository lessonContentRepository) {
         this.lessonContentRepository = lessonContentRepository;
     }
 
     @Autowired
-    public void setLessonContentMapper(LessonContentMapper lessonContentMapper) {
+    public void setLessonContentMapper(ContentMapper lessonContentMapper) {
         this.lessonContentMapper = lessonContentMapper;
     }
 
     @Autowired
-    public void setLessonContentService(LessonContentService lessonContentService) {
+    public void setLessonContentService(ContentService lessonContentService) {
         this.lessonContentService = lessonContentService;
     }
 }

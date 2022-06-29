@@ -1,8 +1,8 @@
 package com.miniapp.countryside.controller;
 
-import com.miniapp.countryside.mapper.LessonContentMapper;
-import com.miniapp.countryside.service.LessonContentService;
-import com.miniapp.countryside.vo.LessonContentVo;
+import com.miniapp.countryside.mapper.ContentMapper;
+import com.miniapp.countryside.service.ContentService;
+import com.miniapp.countryside.vo.ContentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/lesson/content")
 public class LessonContentController {
-    LessonContentService lessonContentService;
-    LessonContentMapper lessonContentMapper;
+    ContentService lessonContentService;
+    ContentMapper lessonContentMapper;
 
     @GetMapping("/{lessonId}")
-    List<LessonContentVo>list(@PathVariable String lessonId){return lessonContentService.list(lessonId).stream().map(lessonContentMapper::toVo).collect(Collectors.toList());}
+    List<ContentVo>list(@PathVariable String lessonId){return lessonContentService.list(lessonId).stream().map(lessonContentMapper::toVo).collect(Collectors.toList());}
 
     @Autowired
-    public void setLessonContentService(LessonContentService lessonContentService) {
+    public void setLessonContentService(ContentService lessonContentService) {
         this.lessonContentService = lessonContentService;
     }
 
     @Autowired
-    public void setLessonContentMapper(LessonContentMapper lessonContentMapper) {
+    public void setLessonContentMapper(ContentMapper lessonContentMapper) {
         this.lessonContentMapper = lessonContentMapper;
     }
 }

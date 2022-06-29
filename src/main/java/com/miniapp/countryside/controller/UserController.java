@@ -4,6 +4,7 @@ import com.miniapp.countryside.dto.UserCreateRequest;
 import com.miniapp.countryside.dto.UserLoginRequest;
 import com.miniapp.countryside.mapper.UserMapper;
 import com.miniapp.countryside.service.UserServise;
+import com.miniapp.countryside.vo.SuccessVo;
 import com.miniapp.countryside.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    String login(@Validated @RequestBody UserLoginRequest userLoginRequest){
+    SuccessVo login(@Validated @RequestBody UserLoginRequest userLoginRequest){
         return userServise.login(userLoginRequest);
     }
 

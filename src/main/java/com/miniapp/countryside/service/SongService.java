@@ -2,6 +2,7 @@ package com.miniapp.countryside.service;
 
 import com.miniapp.countryside.dto.SongCreateRequest;
 import com.miniapp.countryside.dto.SongDto;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,7 +13,7 @@ public interface SongService {
 
     SongDto create(SongCreateRequest songCreateRequest);
 
-    void delete(String id);
+    SuccessVo delete(String id);
 
     List<SongDto> search(String searchContent);
 //    Page<SongDto> search(Pageable pageable);

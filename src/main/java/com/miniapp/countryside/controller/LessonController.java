@@ -3,8 +3,8 @@ package com.miniapp.countryside.controller;
 import com.miniapp.countryside.dto.LessonCreateRequest;
 import com.miniapp.countryside.mapper.LessonMapper;
 import com.miniapp.countryside.service.LessonService;
-import com.miniapp.countryside.vo.LessonContentVo;
 import com.miniapp.countryside.vo.LessonVo;
+import com.miniapp.countryside.vo.SuccessVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class LessonController {
     List<LessonVo> search(@PathVariable String searchContent){return lessonService.search(searchContent).stream().map(lessonMapper::toVo).collect(Collectors.toList());}
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable String id){lessonService.delete(id);}
+    SuccessVo delete(@PathVariable String id){return lessonService.delete(id);}
 
     @GetMapping("/pass/{id}")
     LessonVo changeToPassed(@PathVariable String id){return lessonMapper.toVo(lessonService.changeToPassed(id));}

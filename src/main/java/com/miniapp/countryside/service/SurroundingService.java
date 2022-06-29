@@ -2,6 +2,7 @@ package com.miniapp.countryside.service;
 
 import com.miniapp.countryside.dto.SurroundingCreateRequest;
 import com.miniapp.countryside.dto.SurroundingDto;
+import com.miniapp.countryside.vo.SuccessVo;
 import com.miniapp.countryside.vo.SurroundingRequestVo;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface SurroundingService {
 
     SurroundingDto create(SurroundingCreateRequest surroundingCreateRequest);
 
-    void delete(String id);
+    SuccessVo delete(String id);
 }

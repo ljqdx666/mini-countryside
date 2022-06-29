@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class LessonContentVo extends FileBaseVo{
+public class ContentVo extends FileBaseVo{
     private String lessonId;
 
     private String contentUrl;
